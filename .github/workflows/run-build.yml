@@ -20,11 +20,8 @@ jobs:
       - name: Install Conveyor
         run: npm install -g @hydraulic/conveyor
 
-      - name: Setup Conveyor
-        run: conveyor --agree-to-license=1
-
       - name: Build executable
-        run: conveyor make app
+        run: conveyor make app --  --agree-to-license=1
 
       - name: Upload build to artifact
         id: upload-artifact
