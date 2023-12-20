@@ -16,7 +16,7 @@ jobs:
         run: npm install -g @hydraulic/conveyor
 
       - name: Build executable
-        run: conveyormake site
+        run: conveyor make site --passphrase null
         env:
           CONVEYOR_AGREE_TO_LICENSE: 1
 

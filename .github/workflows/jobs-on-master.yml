@@ -3,16 +3,10 @@ on:
   push:
     branches: main
 jobs:
-  build:
-    uses: ./.github/workflows/run-build.yml
-    with:
-      command: make site
-
   update-site:
-    needs: [build]
     uses: ./.github/workflows/run-update-site.yml
-  release:
-    needs: [build]
-    uses: ./.github/workflows/run-github-release.yml
-    with:
-      build-artifact-id: ${{ needs.build.outputs.artifact-id }}
+  # release:
+  #   needs: [build]
+  #   uses: ./.github/workflows/run-github-release.yml
+  #   with:
+  #     build-artifact-id: ${{ needs.build.outputs.artifact-id }}
