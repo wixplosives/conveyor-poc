@@ -1,0 +1,13 @@
+name: build and release to github
+on:
+  push:
+    branches: main
+jobs:
+  build:
+    uses: ./.github/workflows/run-build.yml
+
+  release:
+    needs: [build]
+    uses: ./.github/workflows/run-github-release.yml
+    with:
+      build-artifact-id: ${{ needs.build.outputs.artifact-id }}
