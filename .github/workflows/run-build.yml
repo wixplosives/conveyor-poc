@@ -21,7 +21,7 @@ jobs:
         run: npm install -g @hydraulic/conveyor
 
       - name: Setup Conveyor
-        run: conveyor -- --agree-to-license 1
+        run: conveyor -- --agree-to-license
 
       - name: Build executable
         run: conveyor make app
