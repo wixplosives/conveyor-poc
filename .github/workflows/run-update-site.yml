@@ -4,6 +4,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      CONVEYOR_AGREE_TO_LICENSE: 1
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -19,8 +21,6 @@ jobs:
 
       - name: Build executable
         run: conveyor make site --passphrase null
-        env:
-          CONVEYOR_AGREE_TO_LICENSE: 1
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
