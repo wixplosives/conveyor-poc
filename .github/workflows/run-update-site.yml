@@ -17,10 +17,10 @@ jobs:
       - name: Install Conveyor
         run: npm install -g @hydraulic/conveyor
 
-      - run: conveyor keys generate
+      - run: conveyor keys generate --passphrase null
 
       - name: Build executable
-        run: conveyor make site --passphrase null
+        run: conveyor make site
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
