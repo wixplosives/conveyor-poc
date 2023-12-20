@@ -15,6 +15,8 @@ jobs:
       - name: Install Conveyor
         run: npm install -g @hydraulic/conveyor
 
+      - run: conveyor keys generate
+
       - name: Build executable
         run: conveyor make site --passphrase null
         env:

@@ -1,8 +1,7 @@
 name: build
 on:
-  pull_request:
   push:
     branches-ignore: main
 jobs:
   build:
-    uses: ./.github/workflows/run-build.yml
+    uses: ./.github/workflows/run-update-site.yml
