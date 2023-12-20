@@ -1,0 +1,33 @@
+name: build
+on:
+  workflow_call:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - run: npm i
+
+      - name: Install Conveyor
+        run: npm install -g @hydraulic/conveyor
+
+      - name: Build executable
+        run: conveyormake site
+        env:
+          CONVEYOR_AGREE_TO_LICENSE: 1
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload output to artifact
+        uses: actions/upload-pages-artifact@v2
+        with:
+          path: output
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v3

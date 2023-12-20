@@ -8,6 +8,9 @@ jobs:
     with:
       command: make site
 
+  update-site:
+    needs: [build]
+    uses: ./.github/workflows/run-update-site.yml
   release:
     needs: [build]
     uses: ./.github/workflows/run-github-release.yml
