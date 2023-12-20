@@ -1,0 +1,37 @@
+name: build
+on:
+  workflow_call:
+    inputs:
+      command:
+        default: make app
+        type: string
+    outputs:
+      artifact-id:
+        value: ${{ jobs.build.outputs.artifact-id }}
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    outputs:
+      artifact-id: ${{ steps.upload-artifact.outputs.artifact-id }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - run: npm i
+
+      - name: Install Conveyor
+        run: npm install -g @hydraulic/conveyor
+
+      - name: Build executable
+        run: conveyor ${{ inputs.command }}
+        env:
+          CONVEYOR_AGREE_TO_LICENSE: 1
+
+      - name: Upload build to artifact
+        id: upload-artifact
+        uses: actions/upload-artifact@v4
+        with:
+          path: ./output
+          name: build-${{ github.run_id }}
