@@ -5,6 +5,8 @@ on:
 jobs:
   build:
     uses: ./.github/workflows/run-build.yml
+    with:
+      command: make site
 
   release:
     needs: [build]

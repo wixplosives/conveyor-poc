@@ -1,6 +1,10 @@
 name: build
 on:
   workflow_call:
+    inputs:
+      command:
+        default: make app
+        type: string
     outputs:
       artifact-id:
         value: ${{ jobs.build.outputs.artifact-id }}
@@ -21,7 +25,7 @@ jobs:
         run: npm install -g @hydraulic/conveyor
 
       - name: Build executable
-        run: conveyor make app
+        run: conveyor ${{ inputs.command }}
         env:
           CONVEYOR_AGREE_TO_LICENSE: 1
 
