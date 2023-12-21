@@ -1,6 +1,10 @@
 name: build
 on:
   workflow_call:
+permissions:
+  pages: write
+  id-token: write
+  actions: read
 jobs:
   build:
     runs-on: ubuntu-latest
