@@ -7,7 +7,7 @@ permissions:
   id-token: write
   actions: read
 jobs:
-  build:
+  github-pages:
     runs-on: ubuntu-latest
     env:
       CONVEYOR_AGREE_TO_LICENSE: 1
@@ -26,6 +26,8 @@ jobs:
 
       - name: Build executable
         run: conveyor make site
+        env:
+          OAUTH_TOKEN: ${{ github.token }}
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
