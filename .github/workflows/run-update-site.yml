@@ -1,9 +1,16 @@
-name: build
+name: update github pages
 on:
   workflow_call:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+  actions: read
 jobs:
-  build:
+  github-pages:
     runs-on: ubuntu-latest
+    env:
+      CONVEYOR_AGREE_TO_LICENSE: 1
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -15,10 +22,11 @@ jobs:
       - name: Install Conveyor
         run: npm install -g @hydraulic/conveyor
 
-      - name: Build executable
-        run: conveyor make site --passphrase null
+      - run: conveyor keys generate --no-passphrase
+
+      - run: conveyor make site
         env:
-          CONVEYOR_AGREE_TO_LICENSE: 1
+          OAUTH_TOKEN: ${{ github.token }}
 
       - name: Setup Pages
         uses: actions/configure-pages@v4

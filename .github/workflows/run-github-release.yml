@@ -1,33 +1,29 @@
-name: build
+name: github release
 on:
   workflow_call:
-    inputs:
-      build-artifact-id:
-        required: true
-        type: string
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+  actions: read
 jobs:
-  build:
+  github-release:
     runs-on: ubuntu-latest
+    env:
+      CONVEYOR_AGREE_TO_LICENSE: 1
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 20
 
-      - name: Get current app version
-        id: get-version
-        run: echo "version=$(node -p require('./package.json').version)" >> $GITHUB_OUTPUT
+      - run: npm i
 
-      - name: Download build artifact
-        id: download-artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: ${{ inputs.build-artifact-id }}
+      - name: Install Conveyor
+        run: npm install -g @hydraulic/conveyor
 
-      - name: Release ${{ steps.get-version.outputs.version }}
-        uses: softprops/action-gh-release@v1
-        with:
-          draft: true
-          name: ${{ steps.get-version.outputs.version }}
-          tag_name: ${{ steps.get-version.outputs.version }}
-          files: My app.app
+      - run: conveyor keys generate --no-passphrase
+
+      - run: conveyor make copied-site
+        env:
+          OAUTH_TOKEN: ${{ github.token }}
