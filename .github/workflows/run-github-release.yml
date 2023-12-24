@@ -24,7 +24,6 @@ jobs:
 
       - run: conveyor keys generate --no-passphrase
 
-      - name: Build executable
-        run: conveyor make copied-site
+      - run: conveyor make copied-site
         env:
           OAUTH_TOKEN: ${{ github.token }}
