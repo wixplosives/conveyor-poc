@@ -1,6 +1,6 @@
 {
   "name": "my-app",
-  "version": "1.0",
+  "version": "1.0.1",
   "description": "An example app showing how to combine Electron apps with Conveyor",
   "main": "main.js",
   "scripts": {
