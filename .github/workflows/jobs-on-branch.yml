@@ -3,5 +3,7 @@ on:
   push:
     branches-ignore: main
 jobs:
-  build:
+  release:
     uses: ./.github/workflows/run-update-site.yml
+  update-site:
+    uses: ./.github/workflows/run-github-release.yml
