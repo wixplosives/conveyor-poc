@@ -28,14 +28,3 @@ jobs:
         run: conveyor make copied-site
         env:
           OAUTH_TOKEN: ${{ github.token }}
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
-
-      - name: Upload output to artifact
-        uses: actions/upload-pages-artifact@v2
-        with:
-          path: output
-
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v3
